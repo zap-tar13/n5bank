@@ -19,14 +19,7 @@ jobs:
       - name: install dependencies
         run: |
           sudo apt-get update
-          # Встановлюємо залежності, враховуючи нову Ubuntu Noble
-          sudo apt-get install -y \
-            libgtk-3-dev \
-            libwebkit2gtk-4.1-dev \
-            libappindicator3-dev \
-            librsvg2-dev \
-            patchelf \
-            libjavascriptcoregtk-4.1-dev
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libjavascriptcoregtk-4.1-dev soup-2.4
 
       - name: build
         run: |
