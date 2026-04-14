@@ -22,3 +22,9 @@ jobs:
           npm install
           npx next build
           npx tauri build
+      
+      - name: Upload AppImage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: N5Bank-Linux-AppImage
+          path: src-tauri/target/release/bundle/appimage/*.AppImage
