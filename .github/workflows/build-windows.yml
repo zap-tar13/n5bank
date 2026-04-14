@@ -1,17 +1,32 @@
 name: Release N5Bank EXE
 on:
-  workflow_dispatch: # Дозволяє запускати вручну
+  workflow_dispatch:
 
 jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      
       - name: setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
+          cache: 'npm'
+          
       - name: install Rust
         uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+          
       - name: build
-        run: npm install && npm run tauri build
+        run: |
+          npm install
+          npx next build
+          npx tauri build
+
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: N5Bank-Windows-Installer
+          path: src-tauri/target/release/bundle/nsis/*.exe
